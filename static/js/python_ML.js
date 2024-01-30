@@ -319,11 +319,7 @@ var VarData = {};
             Blockly.Python.ORDER_FUNCTION_CALL,
         ];
     };
-   /*
-    Blockly.Python.hello_test = function (a) {
-        return ["OPTION1" == a.getFieldValue("NAME") ? "print('Hesham')" : "print('Hazem')", Blockly.Python.ORDER_ATOMIC];
-    };
-    */
+    /*
     Blockly.Python.hello = function(block) {
         var dropdown_name = block.getFieldValue('NAME');
         if (dropdown_name == 'OPTION1') {
@@ -335,7 +331,123 @@ var VarData = {};
         }
         return [code, Blockly.Python.ORDER_FUNCTION_CALL];
       };
-
+      */
+     
+      Blockly.Python.hello = function(block) {
+        var dropdown_name = block.getFieldValue('NAME');
+        var text_dataset_name = Blockly.Python.valueToCode(block, 'DATASET NAME', Blockly.Python.ORDER_ATOMIC);
+        var text_column_name = Blockly.Python.valueToCode(block, 'COLUMN NAME', Blockly.Python.ORDER_ATOMIC);
+    
+        var code;
+        if (dropdown_name == 'OPTION1') {
+            code = 'print("Hesham' + text_dataset_name + text_column_name + '")';
+        } else if (dropdown_name == 'OPTION2') {
+            code = 'print("Hazem' + text_dataset_name + text_column_name + '")';
+        } else {
+            code = 'print("Abzo' + text_dataset_name + text_column_name + '")';
+        }
+    
+        return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+    };
+    /*
+    Blockly.Python.regression_models = function(block) {
+        var dropdown_name = block.getFieldValue('NAME');
+        var text_dataset_name = Blockly.Python.valueToCode(block, 'DATASET NAME', Blockly.Python.ORDER_ATOMIC);
+        var text_column_name = Blockly.Python.valueToCode(block, 'COLUMN NAME', Blockly.Python.ORDER_ATOMIC);
+    
+        var code2 = 'print("Hello World")';
+    
+        return [code2, Blockly.Python.ORDER_FUNCTION_CALL];
+    };
+    */
+    Blockly.Python.regression_models = function(block) {
+        var dropdown_name = block.getFieldValue('NAME');
+        var text_dataset_name = block.getFieldValue('DATASET_NAME');
+        var text_column_name = block.getFieldValue('COLUMN_NAME');
+        var code;
+        if (dropdown_name == 'OPTIONLINEARREGRESSION') {
+            code = 
+            'import pandas as pd \n' +
+            'from sklearn.model_selection import train_test_split \n' +
+            'from sklearn.linear_model import LogisticRegression \n' +
+            '# Load the dataset \n' +
+            'ds = pd.read_csv("'+ text_dataset_name +'.csv") \n' +
+            'ds.dropna(inplace=True, axis=0)         # remove missing values (i.e., NaN or None) from the DataFrame \n' +
+            'ds.isnull().sum()                       # make sure that there is no empty data \n' +
+            'X = ds.drop(columns=["'+ text_column_name +'"], axis=1) \n' +
+            'y = ds["'+ text_column_name +'"] \n' +
+            '# Split the dataset into training and testing sets \n' +
+            'X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) \n' +
+            '# Create a Logistic Regression classifier \n' +
+            'logreg_classifier = LogisticRegression() \n' +
+            '# Fit the model on the training data \n' +
+            'logreg_classifier.fit(X_train, y_train) \n' +
+            '# Make predictions on the test set \n' +
+            'y_pred = logreg_classifier.predict(X_test) \n' +
+            '# Evaluate the accuracy of the model \n' +
+            'accuracy = accuracy_score(y_test, y_pred) \n' +
+            'print(f"Accuracy: {accuracy:.2f}") \n' +
+            '# You can also use other metrics to evaluate the performance of the model \n' +
+            '# For example, you can use confusion matrix, classification report, etc. \n' +
+            'conf_matrix = confusion_matrix(y_test, y_pred) \n' +
+            'print(f"Confusion Matrix:\n{conf_matrix}") \n'
+            
+        } else if (dropdown_name == 'OPTIONDECISIONTREE') {
+            code = 
+            'import pandas as pd \n' +
+            'from sklearn.model_selection import train_test_split \n' +
+            'from sklearn.tree import DecisionTreeClassifier \n' +
+            '# Load the dataset \n' +
+            'ds = pd.read_csv("'+ text_dataset_name +'.csv") \n' +
+            'ds.dropna(inplace=True, axis=0)         # remove missing values (i.e., NaN or None) from the DataFrame \n' +
+            'ds.isnull().sum()                       # make sure that there is no empty data \n' +
+            'X = ds.drop(columns=["'+ text_column_name +'"], axis=1) \n' +
+            'y = ds["'+ text_column_name +'"] \n' +
+            '# Split the dataset into training and testing sets \n' +
+            'X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) \n' +
+            '# Create a Decision Tree classifier \n' +
+            'decision_tree_classifier = DecisionTreeClassifier() \n' +
+            '# Fit the model on the training data \n' +
+            'decision_tree_classifier.fit(X_train, y_train) \n' +
+            '# Make predictions on the test set \n' +
+            'y_pred = decision_tree_classifier.predict(X_test) \n' +
+            '# Evaluate the accuracy of the model \n' +
+            'accuracy = accuracy_score(y_test, y_pred) \n' +
+            'print(f"Accuracy: {accuracy:.2f}") \n' +
+            '# You can also use other metrics to evaluate the performance of the model \n' +
+            '# For example, you can use confusion matrix, classification report, etc. \n' +
+            'conf_matrix = confusion_matrix(y_test, y_pred) \n' +
+            'print(f"Confusion Matrix:\n{conf_matrix}") \n'
+        } else if (dropdown_name == 'OPTIONRANDOMFOREST') {
+            code = 
+            'import pandas as pd \n' +
+            'from sklearn.model_selection import train_test_split \n' +
+            'from sklearn.ensemble import RandomForestClassifier \n' +
+            '# Load the dataset \n' +
+            'ds = pd.read_csv("'+ text_dataset_name +'.csv") \n' +
+            'ds.dropna(inplace=True, axis=0)         # remove missing values (i.e., NaN or None) from the DataFrame \n' +
+            'ds.isnull().sum()                       # make sure that there is no empty data \n' +
+            'X = ds.drop(columns=["'+ text_column_name +'"], axis=1) \n' +
+            'y = ds["'+ text_column_name +'"] \n' +
+            '# Split the dataset into training and testing sets \n' +
+            'X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) \n' +
+            '# Create a Random Forest classifier \n' +
+            'random_forest_classifier = RandomForestClassifier() \n' +
+            '# Fit the model on the training data \n' +
+            'random_forest_classifier.fit(X_train, y_train) \n' +
+            '# Make predictions on the test set \n' +
+            'y_pred = random_forest_classifier.predict(X_test) \n' +
+            '# Evaluate the accuracy of the model \n' +
+            'accuracy = accuracy_score(y_test, y_pred) \n' +
+            'print(f"Accuracy: {accuracy:.2f}") \n' +
+            '# You can also use other metrics to evaluate the performance of the model \n' +
+            '# For example, you can use confusion matrix, classification report, etc. \n' +
+            'conf_matrix = confusion_matrix(y_test, y_pred) \n' +
+            'print(f"Confusion Matrix:\n{conf_matrix}") \n'
+        }
+    
+        return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+    };
     Blockly.Python.lists_split = function (a) {
         var b = a.getFieldValue("MODE");
         if ("SPLIT" == b) (b = Blockly.Python.valueToCode(a, "INPUT", Blockly.Python.ORDER_MEMBER) || "''"), (a = Blockly.Python.valueToCode(a, "DELIM", Blockly.Python.ORDER_NONE)), (a = b + ".split(" + a + ")");
@@ -852,6 +964,16 @@ var VarData = {};
         return ([codeString, Blockly.Python.ORDER_FUNCTION_CALL])
 
     }
+    
+    Blockly.python['dataset'] = function(block, generator) {
+        var text_dataset_name = block.getFieldValue('DATASET NAME');
+        var text_column_name = block.getFieldValue('COLUMN NAME');
+        var value_dataset = generator.valueToCode(block, 'dataset', python.Order.ATOMIC);
+        // TODO: Assemble python into code variable.
+        var code = 'print("Hello World")';
+        // TODO: Change ORDER_NONE to the correct strength.
+        return ([code, Blockly.Python.ORDER_FUNCTION_CALL])
+      };
 
     Blockly.Python['REG_LinearRegression'] = function (a) {
         Blockly.Python.definitions_.LinearRegression = "from sklearn.linear_model import LinearRegression";
@@ -951,7 +1073,6 @@ var VarData = {};
         return ([codeString, Blockly.Python.ORDER_FUNCTION_CALL])
 
     }
-
     Blockly.Python['REG_XGBRegressor'] = function (a) {
         Blockly.Python.definitions_.XGBRegressor = "from xgboost import XGBRegressor";
 
@@ -1167,6 +1288,16 @@ var VarData = {};
             '       return X\n'
         ])
         var codeString = ""
+        
+        python.pythonGenerator.forBlock['dataset'] = function(block, generator) {
+            var text_dataset_name = block.getFieldValue('DATASET NAME');
+            var text_column_name = block.getFieldValue('COLUMN NAME');
+            var value_dataset = generator.valueToCode(block, 'dataset', python.Order.ATOMIC);
+            // TODO: Assemble python into code variable.
+            var code = '...';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.python.ORDER_NONE];
+          };
 
         if (Blockly.Python.valueToCode(a, "TMODEL", Blockly.Python.ORDER_NONE) == "" &&
             Blockly.Python.valueToCode(a, "XTEST", Blockly.Python.ORDER_NONE) == "" &&

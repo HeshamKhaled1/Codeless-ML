@@ -546,8 +546,16 @@ It determines how the Blockly module should be loaded based on the environment (
         },
     };
     Blockly.Blocks.hello = {
-
-    }
+        init: function() {
+          this.appendValueInput("Name")
+              .setCheck("String")
+              .appendField(new Blockly.FieldDropdown([["Hesham","OPTION1"], ["Hazem","OPTION2"], ["Abzo","OPTION3"]]), "NAME");
+          this.setOutput(true, null);
+          this.setColour(65);
+       this.setTooltip("hello world");
+       this.setHelpUrl("www.github.com");
+        }
+      };
     Blockly.Blocks.lists_split = {
         init: function () {
             var a = this,
@@ -1833,7 +1841,7 @@ It determines how the Blockly module should be loaded based on the environment (
             output: "Sklearn_Model"
         }
     ]);
-
+    // dataset name input
     Blockly.defineBlocksWithJsonArray([
         {
             type: "REG_LinearRegression",
@@ -1936,6 +1944,92 @@ It determines how the Blockly module should be loaded based on the environment (
             output: "Sklearn_Model"
         }
     ]);
+
+    /* Codeless Blocks JSON here */
+    Blockly.defineBlocksWithJsonArray([
+        {
+            "type": "regression_models",
+            "message0": "regression models %1 %2 %3 %4",
+            "args0": [
+              {
+                "type": "field_dropdown",
+                "name": "NAME",
+                "options": [
+                  [
+                    "linear regression",
+                    "OPTIONLINEARREGRESSION"
+                  ],
+                  [
+                    "decision tree",
+                    "OPTIONDECISIONTREE"
+                  ],
+                  [
+                    "random forest",
+                    "OPTIONRANDOMFOREST"
+                  ]
+                ]
+              },
+              {
+                "type": "field_input",
+                "name": "DATASET_NAME",
+                "text": "dataset name"
+              },
+              {
+                "type": "field_input",
+                "name": "COLUMN_NAME",
+                "text": "column name"
+              },
+              {
+                "type": "input_value",
+                "name": "NAME",
+                "check": "String"
+              }
+            ],
+            "colour": 210,
+            "tooltip": "regression models",
+            "helpUrl": ""
+          },
+      {
+          "type": "dataset",
+          "message0": "%1 %2 %3",
+          "args0": [
+            {
+              "type": "field_input",
+              "name": "DATASET NAME",
+              "text": "dataset name"
+            },
+            {
+              "type": "field_input",
+              "name": "COLUMN NAME",
+              "text": "column name"
+            },
+            {
+              "type": "input_value",
+              "name": "dataset",
+              "check": "csv"
+            }
+          ],
+          "output": "String",
+          "colour": 230,
+          "tooltip": "dataset name",
+          "helpUrl": ""
+      }
+    ])
+    /* Codeless Blocks Javascript here */
+      Blockly.Blocks.regression_models = {
+        init: function() {
+          this.appendValueInput("NAME")
+              .setCheck("String")
+              .appendField("regression models")
+              .appendField(new Blockly.FieldDropdown([["linear regression","OPTIONLINEARREGRESSION"], ["decision tree","OPTIONDECISIONTREE"], ["random forest","OPTIONRANDOMFOREST"]]), "NAME")
+              .appendField(new Blockly.FieldTextInput("dataset name"), "DATASET_NAME")
+              .appendField(new Blockly.FieldTextInput("column name"), "COLUMN_NAME");
+          this.setOutput(true, null);
+          this.setColour(210);
+       this.setTooltip("regression models");
+       this.setHelpUrl("");
+        }
+      };
     Blockly.Constants.Logic.CLR_Logic = {
         //elseifCount_ -> validCount_
         // elseCount_ -> parmCount_
