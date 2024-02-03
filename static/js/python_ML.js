@@ -390,7 +390,7 @@ var VarData = {};
             '# You can also use other metrics to evaluate the performance of the model \n' +
             '# For example, you can use confusion matrix, classification report, etc. \n' +
             'conf_matrix = confusion_matrix(y_test, y_pred) \n' +
-            'print(f"Confusion Matrix:\n{conf_matrix}") \n'
+            'print(f"Confusion Matrix:{conf_matrix}") \n'
             
         } else if (dropdown_name == 'OPTIONDECISIONTREE') {
             code = 
@@ -417,7 +417,7 @@ var VarData = {};
             '# You can also use other metrics to evaluate the performance of the model \n' +
             '# For example, you can use confusion matrix, classification report, etc. \n' +
             'conf_matrix = confusion_matrix(y_test, y_pred) \n' +
-            'print(f"Confusion Matrix:\n{conf_matrix}") \n'
+            'print(f"Confusion Matrix:{conf_matrix}") \n'
         } else if (dropdown_name == 'OPTIONRANDOMFOREST') {
             code = 
             'import pandas as pd \n' +
@@ -443,7 +443,7 @@ var VarData = {};
             '# You can also use other metrics to evaluate the performance of the model \n' +
             '# For example, you can use confusion matrix, classification report, etc. \n' +
             'conf_matrix = confusion_matrix(y_test, y_pred) \n' +
-            'print(f"Confusion Matrix:\n{conf_matrix}") \n'
+            'print(f"Confusion Matrix:{conf_matrix}") \n'
         }
     
         return [code, Blockly.Python.ORDER_FUNCTION_CALL];
